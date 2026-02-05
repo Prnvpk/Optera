@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Profile | OPTERA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+</head>
+<body>
+
+<header class="topbar">
+    <div class="logo">OPTERA</div>
+    <a href="{% url 'logout' %}" class="logout">Logout</a>
+</header>
+
+<main class="profile-wrapper">
+
+<section class="profile-card">
+
+    <!-- LEFT PANEL -->
+    <div class="profile-left">
+        <img src="{% static 'img/avatar.png' %}" class="avatar">
+        <h2>{{ data.name }}</h2>
+        <p class="email">{{ data.gmail }}</p>
+        <span class="tag">Active User</span>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="profile-right">
+
+        <h3>Account Information</h3>
+
+        <div class="row">
+            <div>
+                <label>Full Name</label>
+                <input type="text" value="{{ data.name }}" readonly>
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" value="{{ data.gmail }}" readonly>
+            </div>
+        </div>
+
+        <div class="row">
+            <div>
+                <label>Phone</label>
+                <input type="text" value="{{ data.number }}" readonly>
+            </div>
+            <div>
+                <label>Status</label>
+                <input type="text" value="Active" readonly>
+            </div>
+        </div>
+
+        <h3>Activity</h3>
+        <div class="row">
+            <input type="text" value="Total Orders: 0" readonly>
+            <input type="text" value="Last Login: Today" readonly>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+/* GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@400;500&family=Montserrat:wght@700&family=Playfair+Display:wght@400&family=Roboto:wght@400&display=swap');
+
+/* RESET */
+
+/* FORCE NAVBAR BLACK EVEN ON SCROLL */
+.sticky-top,
+.navbar,
+.navbar-light.sticky-top {
+    background: #000 !important;
+}
+
+.navbar .nav-link,
+.navbar-brand h2 {
+    color: #fff !important;
+}
+
+.navbar .nav-link:hover {
+    color: #e90303 !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BASE */
+body {
+    background: #f4f6f9;
+    color: #333;
+    font-family: 'Space Mono', monospace;
+}
+
+/* =========================
+   DASHBOARD / MAIN CONTENT
+========================= */
+.content {
+    margin-left: 220px;
+    padding: 30px;
+}
+
+.header h2 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.header p {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+/* CARDS */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    font-size: 32px;
+    color: #4f46e5;
+    margin-bottom: 5px;
+}
+
+.card p {
+    color: #666;
+    font-size: 15px;
+}
+
+/* =========================
+        HERO SECTION
+========================= */
+.hero-header{
+    background:linear-gradient(135deg,#000,#1a1a1a);
+    border-radius:0 0 60px 60px;
+    padding:80px 0;
+    color:#fff;
+}
+
+.hero-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #ff4d4d;
+}
+
+.hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.hero-highlight {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 60px;
+    color: #0b5ed7;
+}
+
+.hero-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 520px;
+    opacity: 0.9;
+}
+
+/* BUTTONS */
+.hero-head
+/* 
+features *//
+
+/* FEATURE SECTION */
+.feature-item{
+    border-radius:18px;
+    background:linear-gradient(135deg,#000,#1a1a1a) !important;
+    transition:0.3s ease;
+    overflow:hidden;
+    position:relative;
+}
+
+.feature-item::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent,#050f1f,transparent);
+    opacity:0;
+    transition:.4s;
+}
+
+.feature-item:hover::after{
+    opacity:.15;
+}
+
+.feature-item:hover{
+    transform:translateY(-10px) scale(1.02);
+    box-shadow:0 25px 50px rgba(0,0,0,0.4);
+}
+
+.feature-item .border{
+    border:1px solid rgba(255,255,255,0.2) !important;
+    border-radius:14px;
+    transition:.3s;
+}
+
+.feature-item:hover .border{
+    border-color:#0b5ed7 !important;
+}
+
+.feature-item i{
+    color:#0b5ed7 !important;
+    transition:.3s;
+}
+
+.feature-item:hover i{
+    transform:scale(1.15) rotate(5deg);
+}
+
+.feature-item h5{
+    font-size:18px;
+    letter-spacing:1px;
+    font-weight:500;
+}

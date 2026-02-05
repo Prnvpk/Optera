@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPTERA</title>
+    <link href="{% static 'css/addproduct.css' %}" rel="stylesheet">
+</head>
+<body>
+    {% include "adminbar.html" %}
+    <div class="container">
+    <h2>Add New Product</h2>
+    <form action="addproduct" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" name="pname" placeholder="Enter product name" >
+        </div>
+
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" name="price" placeholder="Enter price" >
+        </div>
+
+        <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" name="quantity " placeholder="Enter quantity" >
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" placeholder="Enter product description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Product Image</label>
+            <input type="file" name="image">
+        </div>
+
+        <button type="submit" class="btn">Save Product</button>
+
+    </form>
+</div>
+</body>
+</html>

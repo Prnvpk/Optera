@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPTERA</title>
+    <link href= "{% static 'css/viewproduct.css' %}" rel="stylesheet">
+</head>
+<body>
+    
+
+{% include "adminbar.html" %}
+
+    <div class="container">
+        <h2>Product List</h2>
+
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for p in products %}
+            <tr>
+                <td><img src="{{ p.image.url }}" alt="product" width="100" height="100"></td>
+                <td>{{ p.product_name }}</td>
+                <td>₹{{ p.price }}</td>
+                <td>{{ p.quantity }}</td>
+                <td>{{ p.description }}</td>
+                <td>
+                    <button><a href="{% url 'editproduct' p.id %}" class="btn-edit">Edit</a></button>
+                    <button> <a href="{% url 'deleteproduct' p.id %}" class="btn-delete" onclick="return confirm('Are you sure?')">Delete</a></button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+    </div>
+
+</body>
+</html>  
