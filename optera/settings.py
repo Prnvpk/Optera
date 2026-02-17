@@ -136,9 +136,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # payment/
 
-# PAYPAL_CLIENT_ID = "ASrWUwtK0tujJVMXvBii1TiTwv0x_azrS2KhB7enVhLJfDTWzoipE6-nusZfGwALGvZvwdDNo29C9Uqd"
-# PAYPAL_CLIENT_SECRET = "EAxLPR2489udUbbkcrfXtYHCRMKgVqn2LRf0YADweIFqPqI9SMkorxPXqV65MYSczUl8u9ws4lLmeKd7"
-# PAYPAL_MODE = "sandbox"
 
 
 ALLOWED_HOSTS = ['*']   # later you can change to render domain
