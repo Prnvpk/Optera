@@ -1,0 +1,37 @@
+body{
+    font-family: Montserrat;
+    background:#f4f6f8;
+}
+
+.order-container{
+    width:80%;
+    margin:auto;
+}
+
+.order-card{
+    background:white;
+    padding:15px;
+    margin:20px 0;
+    display:flex;
+    gap:20px;
+    border-radius:10px;
+    box-shadow:0 0 8px rgba(0,0,0,0.1);
+}
+
+.status{
+    padding:5px 10px;
+    border-radius:5px;
+    color:white;
+}
+
+.pending{
+    background:orange;
+}
+
+.completed{
+    background:green;
+}
+
+.shipped{
+    background:blue;
+}

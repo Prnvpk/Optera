@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="product-box">
+
+        <img src="{{ product.image.url }}" class="prodduct-img" alt="{{ product.product_name }}">
+
+        <h1>buy product</h1>
+
+        <div class="name">
+            {{ product.prodduct_name }}
+        </div>
+
+        <div class="price">
+            ₹{{ product.price }}
+        </div>
+
+        <div class="desc">
+            {{ product.description }}
+        </div>
+        <a href="productbuy" class="buy-btn">Buy Now </a>
+    </div>
+</body>
+</html>

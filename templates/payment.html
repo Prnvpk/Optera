@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment | OPTERA</title>
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo">OPTERA</div>
+</header>
+
+<div class="payment-wrapper">
+
+    <h2>Secure Payment</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        
+        <div class="form-fields">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="pay-btn">
+            PAY NOW
+        </button>
+    </form>
+
+</div>
+
+</body>
+</html>

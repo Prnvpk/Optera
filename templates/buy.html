@@ -1,30 +1,94 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPTERA</title>
-</head>
-<body>
-    <h1>buy product</h1>
-    <div class="wrapper">
+    <title>OPTERA | Checkout</title>
 
-    <!-- IMAGE -->
-    <div class="product-banner">
-        {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.product_name }}">
-        {% else %}
-            <img src="/static/no-image.png" alt="No image">
-        {% endif %}
+    <link href="{% static 'css/buy.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo">OPTERA</div>
+</header>
+
+<div class="checkout-container">
+
+    <!-- LEFT SIDE -->
+    <div class="checkout-left">
+
+        <div class="product-card">
+
+            <div class="product-image">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}">
+                {% else %}
+                    <img src="{% static 'img/no-image.png' %}">
+                {% endif %}
+            </div>
+
+            <div class="product-details">
+                <h3>{{ product.product_name }}</h3>
+                <p class="price">₹ {{ product.price }}</p>
+                <p class="desc">{{ product.description }}</p>
+            </div>
+
+        </div>
+
+        <!-- ADDRESS + QTY FORM -->
+        <div class="address-box">
+
+            <h4>Delivery Details</h4>
+
+            <form action="{% url 'buyproduct' product.id %}" method="POST">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <label>Quantity</label>
+                    <input type="number" name="quantity" value="1" min="1" required>
+                </div>
+
+                <div class="form-row">
+                    <label>Delivery Address</label>
+                    <input type="text" name="address" placeholder="Enter your address" required>
+                </div>
+
+               <a href="{% url 'payment' %}" class="buy-btn" type="submit">
+                    CONTINUE TO PAYMENT
+                </a>     
+
+            </form>
+
+        </div>
+
     </div>
 
-    <!-- INFO -->
-    <div class="product-info">
-        <h1>{{ product.product_name }}</h1>
-        <div class="price">₹ {{ product.price }}</div>
+    <!-- RIGHT SIDE PRICE BOX -->
+    <div class="checkout-right">
 
-        <div class="description">
-            {{ product.description }}
+        <div class="price-box">
+
+            <h4>PRICE DETAILS</h4>
+
+            <div class="row">
+                <span>Price</span>
+                <span>₹ {{ product.price }}</span>
+            </div>
+
+            <div class="row total">
+                <span>Total Amount</span>
+                <span>₹ {{ product.price }}</span>
+            </div>
+
         </div>
+
+    </div>
+
+</div>
+
 </body>
 </html>

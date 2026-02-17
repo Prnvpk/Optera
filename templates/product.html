@@ -30,11 +30,11 @@
             <h3>{{ product.product_name }}</h3>
             <p class="price">₹{{ product.price }}</p>
             <p>{{ product.description|truncatechars:60 }}</p>
-            
-            <a  class="btn"  href="">Cart</a>
-            <a class="btn" href="{% url 'productbuy' product.id %}">Buy</a>
 
-            
+            <a class="btn" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+            <a class="btn" href="productbuy/{{product.id}}">buy</a>
+
+
         </div>
         {% empty %}
         <p>No products found</p>

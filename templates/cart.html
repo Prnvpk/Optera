@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Cart | OPTERA</title>
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="logo">OPTERA</div>
+    </header>
+
+    <div class="cart-page">
+
+        {% if cart_items %}
+        <div class="cart-layout">
+
+            <!-- LEFT : CART ITEMS -->
+            <div class="cart-items">
+
+                {% for item in cart_items %}
+                <div class="cart-item">
+
+                    <div class="item-details">
+                        <h4>{{ item.product.product_name }}</h4>
+                        <p class="price">₹{{ item.product.price }}</p>
+                    </div>
+
+                    <div class="item-image">
+                        {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.product_name }}">
+                        {% else %}
+                        <img src="{% static 'img/no-image.png' %}" alt="No Image">
+                        {% endif %}
+                    </div>
+
+                    <div class="item-qty">
+
+                        <a href="{% url 'decrease_qty' item.product.id %}" class="qty-btn">−</a>
+
+                        <span class="qty-number">{{ item.quantity }}</span>
+
+                        <a href="{% url 'increase_qty' item.product.id %}" class="qty-btn">+</a>
+
+                    </div>
+                    
+                    <div class="item-remove">
+                        <a href="{% url 'removefromcart' item.product.id %}" class="remove-btn">
+                            Remove
+                        </a>
+                    </div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <div class="price-summary">
+                <h3>PRICE DETAILS</h3>
+
+                <div class="summary-row">
+                    <span>Total Items</span>
+                    <span>{{ cart_items|length }}</span>
+                </div>
+
+                <div class="summary-row total">
+                    <span>Total Amount</span>
+                    <span>₹{{ total }}</span>
+                </div>
+
+                <a href="{% url 'address' %}" class="place-order-btn">
+                    PLACE ORDER
+                </a>
+            </div>
+
+        </div>
+
+        {% else %}
+        <p class="empty-cart">Your cart is empty</p>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>

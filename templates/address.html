@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delivery Address | OPTERA</title>
+    <link rel="stylesheet" href="{% static 'css/address.css' %}">
+</head>
+<body>
+<header class="topbar">
+    <div class="logo">OPTERA</div>
+</header>
+
+    <div class="address-wrapper">
+        <h2>Delivery Address</h2>
+        <form action="{% url 'payment' %}" method="POST">
+            {% csrf_token %}
+    
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="text" name="mobile" placeholder="Mobile Number" required>
+            <input type="text" name="house" placeholder="House / Flat No." required>
+            <input type="text" name="street" placeholder="Street / Area" required>
+            <input type="text" name="city" placeholder="City" required>
+            <input type="text" name="pincode" placeholder="Pincode" required>
+    
+            <button type="submit" class="pay-btn">
+             ORDER SUBMIT
+            </button>
+        </form>
+    
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+}
+
+/* Main container (beside sidebar) */
+.container {
+    margin-left: 260px; /* space for sidebar */
+    padding: 30px;
+}
+
+/* Title */
+.container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #1f2933;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* Head */
+th {
+    background: #111827;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+}
+
+/* Rows */
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+    font-size: 1

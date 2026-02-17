@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home),
+    path('index', views.index),
     path('register',views.register),
     path('shows',views.showuser),
     path('login',views.login),
@@ -34,9 +35,32 @@ urlpatterns = [
     path('deleteproduct/<int:id>/', views.deleteproduct, name='deleteproduct'),
     path('product',views.openproduct),
     path('productbuy/<int:id>/', views.openbuy, name='productbuy'),
+    path('buyproduct/<int:id>/', views.buy, name='buyproduct'),
+
     path('profile',views.openprofile),
     path('dashboard',views.dashboard),
+    path('add-to-cart/<int:pid>/', views.addtocart, name='add_to_cart'),
+    path('cart/', views.opencart, name='cart'),
+    path('address/', views.address_page, name='address'),
+    path('remove-from-cart/<int:pid>/', views.removefromcart, name='removefromcart'),
+    path('cart/product',views.openproduct),
+    path('increase/<int:id>/', views.increase_qty, name='increase_qty'),
+    path('decrease/<int:id>/', views.decrease_qty, name='decrease_qty'),
+    path('payment/', views.payment_page, name='payment'),
 
+    path('admin-orders/', views.admin_orders, name='admin_orders'),
+    path('update-order/<int:oid>/', views.update_order_status, name='update_order_status'),
+    path('my-orders/', views.user_order_status, name='user_order_status'),
+
+
+    path('admin-orders/', views.admin_orders, name='admin_orders'),
+    path('update-order/<int:oid>/', views.update_order_status, name='update_order_status'),
+
+
+
+
+
+ 
 
 ]
 

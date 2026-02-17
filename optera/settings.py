@@ -116,8 +116,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS=['static']
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 
 
 MEDIA_URL = '/media/'
@@ -127,3 +132,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# payment/
+
+# PAYPAL_CLIENT_ID = "ASrWUwtK0tujJVMXvBii1TiTwv0x_azrS2KhB7enVhLJfDTWzoipE6-nusZfGwALGvZvwdDNo29C9Uqd"
+# PAYPAL_CLIENT_SECRET = "EAxLPR2489udUbbkcrfXtYHCRMKgVqn2LRf0YADweIFqPqI9SMkorxPXqV65MYSczUl8u9ws4lLmeKd7"
+# PAYPAL_MODE = "sandbox"
+
+
+ALLOWED_HOSTS = ['*']   # later you can change to render domain
+
+
