@@ -1,2 +1,4 @@
-# Optera
-his mini project is a Django-based web application developed using Python to demonstrate core web development concepts. It includes user authentication, session handling, and basic product and user management, following Django best practices for academic and learning purposes.
+OPTERA is a modern eyewear e-commerce web application built using Django.
+The project simulates a real online shopping experience where users can browse eyewear products, add items to cart, manage quantities, enter delivery details, and complete a checkout flow.
+
+This project was created as a learning-based mini ecommerce platform focusing on backend logic, UI design, and payment workflow integration.
