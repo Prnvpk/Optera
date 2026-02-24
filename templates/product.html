@@ -12,6 +12,22 @@
 <body>
     <header class="topbar">
         <div class="logo">OPTERA</div>
+            <div class="navbar-nav ms-auto">
+                        <a href="index" class="nav-item nav-link active">Home</a>
+                        <a href="product" class="nav-item nav-link">Products</a>
+                        <a href="profile" class="nav-item nav-link">   
+                            <i class="fa-solid fa-circle-user"></i>
+                        </a>
+
+                        <a href="cart" class="nav-item nav-link">
+                             <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                         
+                        <a href="{% url 'user_order_status' %}" class="nav-item nav-link">
+                            <i class="fa-solid fa-box"></i>
+                        </a>   
+                        
+                        <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
     </header>
     
     <div class="container">
