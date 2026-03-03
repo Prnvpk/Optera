@@ -300,40 +300,32 @@ def buy(request,id):
 #payment
 
 
+from django.shortcuts import render
+from django.http import HttpResponse
+
 def payment_page(request):
+
     if request.method == "POST":
-        form = PaymentForm(request.POST)
-        if form.is_valid():
 
-            # ✅ FIXED SESSION NAME
-            current_user = request.session.get("uid")
+        card_number = request.POST.get("card_number")
+        expiry_date = request.POST.get("expiry_date")
+        cvv = request.POST.get("cvv")
 
-            # get pending orders of logged user
-            user_orders = orders.objects.filter(user_id=current_user, status="pending")
-
-            for order in user_orders:
-                product = order.product
-
-                # decrease product quantity
-                product.quantity -= order.quantity
-                if product.quantity < 0:
-                    product.quantity = 0
-
-                product.save()
-
-                # mark order completed
-                order.status = "completed"
-                order.save()
-
+        # 🔒 Basic validation
+        if not card_number or not expiry_date or not cvv:
             return HttpResponse(
-             '<script>alert("Payment completed successfully!"); window.location="/my-orders/";</script>'
-                 )
+                '<script>alert("Invalid Payment Details"); window.history.back();</script>'
+            )
 
+        # ✅ Fake success flow
+        request.session['payment_done'] = True
 
-    else:
-        form = PaymentForm()
+        # ⭐ Only show alert AFTER success (no success.html needed)
+        return HttpResponse(
+            '<script>alert("Payment completed successfully!"); window.location="/my-orders/";</script>'
+        )
 
-    return render(request, "payment.html", {"form": form})
+    return render(request, "payment.html")
 
 
 

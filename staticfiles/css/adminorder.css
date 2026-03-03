@@ -1,0 +1,85 @@
+/* ===== GLOBAL ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    background:#f4f6f8;
+    color:#222;
+}
+
+/* ===== TITLE ===== */
+h2{
+    margin:30px 0;
+    font-weight:600;
+}
+
+/* ===== TABLE STYLE ===== */
+table{
+    border-collapse:collapse;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+th{
+    background:#000;
+    color:#fff;
+    font-weight:500;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:13px;
+}
+
+th, td{
+    padding:14px 16px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+tr:hover{
+    background:#fafafa;
+}
+
+/* ===== STATUS TEXT ===== */
+td{
+    font-size:14px;
+}
+
+/* ===== SELECT DROPDOWN ===== */
+select{
+    padding:6px 10px;
+    border-radius:6px;
+    border:1px solid #ddd;
+    outline:none;
+    font-size:13px;
+    background:#fff;
+    cursor:pointer;
+}
+
+/* ===== UPDATE BUTTON ===== */
+button{
+    margin-left:6px;
+    padding:6px 14px;
+    border:none;
+    border-radius:20px;
+    background:#b4ff12;   /* OPTERA accent color */
+    color:#000;
+    font-size:12px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#000;
+    color:#fff;
+}
+
+/* ===== ADMINBAR SPACING FIX ===== */
+body > table{
+    margin-bottom:40px;
+}

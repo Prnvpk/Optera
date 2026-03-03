@@ -16,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Poppins:wght@200;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
         
         
 
@@ -32,6 +33,40 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 30px;
+            background: #000;
+            color: #fff;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+        .topbar nav .navbar-nav {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+        }
+        .topbar nav .navbar-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+        }
+        .topbar nav .navbar-nav a:hover {
+            opacity: 0.85;
+        }
+    </style>
 
 </head>
 
@@ -47,40 +82,25 @@
 
 
    <!-- navbar start -->
-
-    <div class="sticky-top">
-        <div class="">
-            <nav class="navbar navbar-expand-lg navbar-light p-0">
-                <a href="index.html" class="navbar-brand">
-                    <h2 class="text-white">OPTERA</h2>
+    <header class="topbar sticky-top">
+        <a href="/index" class="logo">OPTERA</a>
+        <nav>
+            <div class="navbar-nav">
+                <a href="/index">Home</a>
+                <a href="/product">Products</a>
+                <a href="/profile">
+                    <i class="bi bi-person-circle"></i>
                 </a>
-                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
-                    data-bs-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto">
-                        <a href="index" class="nav-item nav-link active">Home</a>
-                        <a href="product" class="nav-item nav-link">Products</a>
-                        <a href="profile" class="nav-item nav-link">   
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-
-                        <a href="cart" class="nav-item nav-link">
-                             <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
-                         
-                        <a href="{% url 'user_order_status' %}" class="nav-item nav-link">
-                            <i class="fa-solid fa-box"></i>
-                        </a>   
-                        
-                        <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
-                        
-
-    
-            </nav>
-        </div>
-    </div>
+                <a href="{% url 'cart' %}">
+                    <i class="bi bi-cart"></i>
+                </a>
+                <a href="{% url 'user_order_status' %}">
+                    <i class="bi bi-box"></i>
+                </a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </nav>
+    </header>
     <!-- Navbar End -->
 
 
@@ -252,7 +272,7 @@
                         </div>
                         <a href="" class="h6 d-inline-block mb-2">rayban Meta</a>
                         <h5 class="text-primary mb-3">₹2000</h5>
-                        <a href="cart.html" class="btn btn-outline-primary px-3">Add To Cart</a>
+                        <a href="{% url 'cart' %}" class="btn btn-outline-primary px-3">Add To Cart</a>
                     </div>
                 </div>
             </div>

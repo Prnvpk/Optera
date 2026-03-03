@@ -25,14 +25,26 @@ body{
     font-weight:400;
     letter-spacing:4px;
     text-transform:uppercase;
+    color:#fff;
+    text-decoration:none;
 }
 
-.logout{
+.topbar nav .navbar-nav{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:20px;
+}
+
+.topbar nav .navbar-nav a{
     color:#fff;
-    border:1px solid #fff;
-    padding:6px 16px;
-    border-radius:20px;
     text-decoration:none;
+    font-family:'Poppins', sans-serif;
+    font-size:15px;
+}
+
+.topbar nav .navbar-nav a:hover{
+    opacity:0.85;
 }
 
 /* Layout */
