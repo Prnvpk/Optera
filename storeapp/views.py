@@ -3,6 +3,7 @@ from .models import users,products,orders
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.db.models import Q
+from django.core.paginator import Paginator
 from django.conf import settings
 from .forms import PaymentForm
 
@@ -15,7 +16,8 @@ def home(request):
     return render(request, 'login.html')
 
 def index(request):
-    return render(request,'index.html')
+    featured_products = products.objects.all()[:4]
+    return render(request, 'index.html', {'featured_products': featured_products})
 
 def register(request):
     if request.method == 'POST':
@@ -167,6 +169,26 @@ def decrease_qty(request, id):
 
 
 def address_page(request):
+    cart = request.session.get('cart', {})
+    if not cart:
+        return redirect('cart')
+
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        mobile = request.POST.get('mobile', '').strip()
+        house = request.POST.get('house', '').strip()
+        street = request.POST.get('street', '').strip()
+        city = request.POST.get('city', '').strip()
+        pincode = request.POST.get('pincode', '').strip()
+
+        if not all([name, mobile, house, street, city, pincode]):
+            return HttpResponse(
+                '<script>alert("Please fill all address fields."); window.history.back();</script>'
+            )
+
+        request.session['checkout_address'] = f"{name}, {mobile}, {house}, {street}, {city} - {pincode}"
+        return redirect('payment')
+
     return render(request, 'address.html')
 
 
@@ -251,20 +273,6 @@ def openprofile(request):
 
     return render(request, 'profile.html', context)
 
-def dashboard(request):
-    user_id = request.session.get('user_id')
-
-    if not user_id:
-        return redirect('login')   # if not logged in
-
-    # fetch only needed user data
-    data = users.objects.get(id=user_id)
-
-    context = {
-        'data': data
-    }
-    return render(request,'adminbar.html')
-
 def openbuy(request,id):
     product = products.objects.get(id=id)
     return render(request,'buy.html',{'product':product})
@@ -304,23 +312,69 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def payment_page(request):
+    cart = request.session.get('cart', {})
+    if not cart:
+        return redirect('cart')
+
+    user_id = request.session.get('uid')
+    if not user_id:
+        return redirect('/login')
 
     if request.method == "POST":
-
         card_number = request.POST.get("card_number")
         expiry_date = request.POST.get("expiry_date")
         cvv = request.POST.get("cvv")
 
-        # 🔒 Basic validation
         if not card_number or not expiry_date or not cvv:
             return HttpResponse(
                 '<script>alert("Invalid Payment Details"); window.history.back();</script>'
             )
 
-        # ✅ Fake success flow
-        request.session['payment_done'] = True
+        address = request.session.get('checkout_address')
+        if not address:
+            return redirect('address')
 
-        # ⭐ Only show alert AFTER success (no success.html needed)
+        user = get_object_or_404(users, id=user_id)
+        order_created = False
+
+        for pid, qty in cart.items():
+            product = products.objects.filter(id=int(pid)).first()
+            if not product:
+                continue
+
+            quantity = int(qty)
+            if quantity <= 0:
+                continue
+
+            if product.quantity <= 0:
+                return HttpResponse(
+                    f'<script>alert("{product.product_name} is out of stock."); window.location="/cart/";</script>'
+                )
+
+            if product.quantity < quantity:
+                return HttpResponse(
+                    f'<script>alert("Only {product.quantity} item(s) left for {product.product_name}."); window.location="/cart/";</script>'
+                )
+
+            orders.objects.create(
+                product=product,
+                user=user,
+                quantity=quantity,
+                address=address
+            )
+            product.quantity -= quantity
+            product.save()
+            order_created = True
+
+        if not order_created:
+            return HttpResponse(
+                '<script>alert("No valid products found in cart."); window.location="/cart/";</script>'
+            )
+
+        request.session['payment_done'] = True
+        request.session.pop('cart', None)
+        request.session.pop('checkout_address', None)
+
         return HttpResponse(
             '<script>alert("Payment completed successfully!"); window.location="/my-orders/";</script>'
         )
@@ -332,7 +386,13 @@ def payment_page(request):
 
 def admin_orders(request):
     all_orders = orders.objects.all().order_by('-order_date')
-    return render(request,'adminorder.html',{'orders':all_orders})
+    paginator = Paginator(all_orders, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'adminorder.html', {
+        'orders': page_obj,
+        'page_obj': page_obj
+    })
 
 
 
@@ -359,6 +419,9 @@ def user_order_status(request):
     user_orders = orders.objects.filter(user_id=user_id).order_by('-order_date')
 
     return render(request,'order_status.html',{'orders':user_orders})
+
+
+
 
 
 

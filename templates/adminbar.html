@@ -1,22 +1,13 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="{% static 'css/adminbar.css' %}" rel="stylesheet">
-</head>
-<body>
-    <div class="sidebar">
+<link href="{% static 'css/adminbar.css' %}" rel="stylesheet">
+
+<div class="sidebar">
     <div class="logo">Admin Panel</div>
     <ul>
-        <li><a href="dashboard">Dashboard</a></li>
-        <li><a href="addproduct">Add Product</a></li>
-        <li><a href="viewproduct">View Products</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'addproduct' %}">Add Product</a></li>
+        <li><a href="{% url 'viewproduct' %}">View Products</a></li>
         <li><a href="{% url 'admin_orders' %}">Orders</a></li>
         <li><a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a></li>
     </ul>
 </div>
-</body>
-</html>

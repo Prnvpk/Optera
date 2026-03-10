@@ -12,7 +12,7 @@
 
     <div class="address-wrapper">
         <h2>Delivery Address</h2>
-        <form action="{% url 'payment' %}" method="POST">
+        <form action="{% url 'address' %}" method="POST">
             {% csrf_token %}
     
             <input type="text" name="name" placeholder="Full Name" required>
@@ -23,7 +23,7 @@
             <input type="text" name="pincode" placeholder="Pincode" required>
     
             <button type="submit" class="pay-btn">
-             ORDER SUBMIT
+             CONTINUE TO PAYMENT
             </button>
         </form>
     

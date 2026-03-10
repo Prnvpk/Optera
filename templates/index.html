@@ -211,9 +211,14 @@
                 <p class="mb-5">Stylish eyewear crafted for clear vision, modern comfort, and everyday use. Advanced lenses, durable frames, and timeless designs included.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+                {% for item in featured_products %}
+                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.{{ forloop.counter }}s">
                     <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="{% static 'img/product-1.png' %}" alt="">
+                        {% if item.image %}
+                        <img class="img-fluid mb-4" src="{{ item.image.url }}" alt="{{ item.product_name }}">
+                        {% else %}
+                        <img class="img-fluid mb-4" src="{% static 'img/no-image.png' %}" alt="No Image">
+                        {% endif %}
                         <div class="mb-2">
                             <small class="fa fa-star text-primary"></small>
                             <small class="fa fa-star text-primary"></small>
@@ -222,59 +227,16 @@
                             <small class="fa fa-star text-primary"></small>
                             <small>(99)</small>
                         </div>
-                        <a href="" class="h6 d-inline-block mb-2">Vincent Chase</a>
-                        <h5 class="text-primary mb-3">₹1200</h5>    
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
+                        <a href="{% url 'productbuy' item.id %}" class="h6 d-inline-block mb-2">{{ item.product_name }}</a>
+                        <h5 class="text-primary mb-3">₹{{ item.price }}</h5>
+                        <a href="{% url 'add_to_cart' item.id %}" class="btn btn-outline-primary px-3">Add To Cart</a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">John Jacobs JJ S10233</a>
-                        <h5 class="text-primary mb-3">₹3000</h5>
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                    </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>No products available.</p>
                 </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/product-1.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">Ray-Ban LA E17022</a>
-                        <h5 class="text-primary mb-3">₹2500</h5>
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">rayban Meta</a>
-                        <h5 class="text-primary mb-3">₹2000</h5>
-                        <a href="{% url 'cart' %}" class="btn btn-outline-primary px-3">Add To Cart</a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -350,3 +312,4 @@
 </body>
 
 </html>
+

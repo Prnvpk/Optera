@@ -1,0 +1,221 @@
+:root {
+    --bg: #f3f5f9;
+    --surface: #ffffff;
+    --surface-2: #f8fafc;
+    --text: #111827;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --brand: #0f766e;
+    --brand-dark: #0b5f58;
+    --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(180deg, #eef2f7 0%, #f8fafc 45%, #eef2f7 100%);
+    color: var(--text);
+    display: block;
+}
+
+h2 {
+    width: 100%;
+    margin: 0 0 16px;
+    text-align: left !important;
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.9rem);
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: #0f172a;
+}
+
+h2::after {
+    content: "";
+    display: block;
+    width: 84px;
+    height: 3px;
+    margin-top: 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #0f766e 0%, #14b8a6 100%);
+}
+
+table {
+    width: 100% !important;
+    margin: 0 0 42px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+thead th,
+tr:first-child th {
+    background: #0f172a;
+    color: #f8fafc;
+    font-size: 0.85rem;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    border: 0;
+    padding: 14px 16px;
+}
+
+th,
+td {
+    border: 0 !important;
+    border-bottom: 1px solid var(--line) !important;
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 0.94rem;
+}
+
+tr:hover td {
+    background: var(--surface-2);
+}
+
+tr:last-child td {
+    border-bottom: 0 !important;
+}
+
+td:nth-child(3) {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+td:nth-child(4) {
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+select {
+    min-width: 130px;
+    padding: 9px 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #fff;
+    color: #0f172a;
+    font-family: inherit;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+}
+
+button {
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 14px;
+    background: linear-gradient(180deg, #14b8a6 0%, #0f766e 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.86rem;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.2s ease;
+}
+
+button:hover {
+    filter: brightness(0.96);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+@media (max-width: 920px) {
+    h2,
+    table {
+        width: 100% !important;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+}
+
+.admin-content {
+    margin-left: 264px;
+    margin-right: 24px;
+    padding: 34px 0 24px;
+}
+
+.pagination-wrap {
+    width: 100%;
+    margin: -10px 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    min-width: 40px;
+    height: 38px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #1f2937;
+    background: #fff;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+.page-btn:hover {
+    border-color: #9ca3af;
+    background: #f8fafc;
+}
+
+.page-btn.active {
+    background: #0f172a;
+    color: #fff;
+    border-color: #0f172a;
+}
+
+.page-btn.disabled {
+    color: #9ca3af;
+    background: #f3f4f6;
+    border-color: #e5e7eb;
+    pointer-events: none;
+}
+
+@media (max-width: 920px) {
+    .admin-content {
+        margin-left: 16px;
+        margin-right: 16px;
+        padding-top: 22px;
+    }
+
+    .pagination-wrap {
+        width: 100%;
+    }
+}
+

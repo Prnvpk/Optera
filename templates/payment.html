@@ -51,7 +51,7 @@
             <h2>Secure Card Payment</h2>
             <p class="subtitle">All transactions are encrypted and secure.</p>
 
-            <form method="POST">
+            <form method="POST" action="{% url 'payment' %}">
                 {% csrf_token %}
 
                 <!-- CARD NUMBER -->

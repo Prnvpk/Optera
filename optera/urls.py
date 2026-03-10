@@ -29,7 +29,7 @@ urlpatterns = [
     path('shows',views.showuser),
     path('login',views.login),
     path('logout', views.logout, name='logout'),
-    path('addproduct',views.addpro),
+    path('addproduct',views.addpro, name='addproduct'),
     path('viewproduct', views.viewproduct, name='viewproduct'),
     path('editproduct/<int:id>/', views.editproduct, name='editproduct'),
     path('deleteproduct/<int:id>/', views.deleteproduct, name='deleteproduct'),
@@ -38,7 +38,7 @@ urlpatterns = [
     path('buyproduct/<int:id>/', views.buy, name='buyproduct'),
 
     path('profile',views.openprofile),
-    path('dashboard',views.dashboard),
+    path('dashboard',views.dashboard, name='dashboard'),
     path('add-to-cart/<int:pid>/', views.addtocart, name='add_to_cart'),
     path('cart/', views.opencart, name='cart'),
     path('address/', views.address_page, name='address'),
