@@ -251,18 +251,18 @@ def editproduct(request, id):
 
 def openprofile(request):
 
-    # ✅ Check session
+    #Check session
     uid = request.session.get('uid')
     if not uid:
         return redirect('login')
 
-    # 👤 Logged user
+    #Logged user
     data = get_object_or_404(users, id=uid)
 
-    # 📦 Get only THIS user's orders
+    
     user_orders = orders.objects.filter(user=data).order_by('-id')
 
-    # ⭐ total order count
+    
     total_orders = user_orders.count()
 
     context = {
