@@ -14,6 +14,24 @@ body {
     min-height: 100vh;
     background: #f2f2f2;
     padding: 0 20px;
+    overflow-x: hidden;
+}
+
+@media (max-width: 640px) {
+    .wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .slide-controls {
+        height: 46px;
+    }
+
+    .slide-controls .slide,
+    .form-container .form-inner form .field input,
+    .form-container .form-inner form .btn input {
+        font-size: 14px;
+    }
 }
 
 ::selection {

@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.db.models import Q
 from django.core.paginator import Paginator
-from django.conf import settings
 from .forms import PaymentForm
 
 
@@ -20,21 +19,22 @@ def index(request):
     return render(request, 'index.html', {'featured_products': featured_products})
 
 def register(request):
-    if request.method == 'POST':
-        Name = request.POST.get('name')
-        Email = request.POST.get('mail')
-        Number = request.POST.get('num')
-        Password = request.POST.get('pass')
+    if request.method != 'POST':
+        return redirect('home')
 
-        data = users.objects.create(
-            name=Name,
-            gmail=Email,
-            number=Number,
-            password=Password
-        )
-        data.save()
-        return render(request, 'login.html')
-    return HttpResponse("failed")
+    Name = request.POST.get('name')
+    Email = request.POST.get('mail')
+    Number = request.POST.get('num')
+    Password = request.POST.get('pass')
+
+    data = users.objects.create(
+        name=Name,
+        gmail=Email,
+        number=Number,
+        password=Password
+    )
+    data.save()
+    return redirect('home')
 
 def showuser(request):
     data = users.objects.all()
@@ -48,17 +48,20 @@ def showuser(request):
 
 
 def login(request):
+    if request.method != "POST":
+        return redirect('home')
+
     if request.method == "POST":
         mail = request.POST.get('mail')
         pas  = request.POST.get('pass')  
 
         if mail == 'admin@gmail.com' and pas == 'admin123':
-            return render(request,'admin.html')
+            return redirect('dashboard')
         
         try:
             data = users.objects.get(gmail=mail, password=pas)
             request.session['uid'] = data.id
-            return render(request,'index.html')
+            return redirect('index')
         except users.DoesNotExist:
             return HttpResponse("Invalid credentials")
 
@@ -72,7 +75,7 @@ def openuser(request):
 
 def logout(request):
     request.session.flush()
-    return redirect('/')
+    return redirect('home')
 
     
 
@@ -250,25 +253,20 @@ def editproduct(request, id):
     return render(request, 'editproduct.html', {'product': product})
 
 def openprofile(request):
-
-    #Check session
     uid = request.session.get('uid')
     if not uid:
         return redirect('login')
 
-    #Logged user
     data = get_object_or_404(users, id=uid)
-
-    
     user_orders = orders.objects.filter(user=data).order_by('-id')
-
-    
     total_orders = user_orders.count()
+    last_order = user_orders.first()
 
     context = {
         'data': data,
         'orders': user_orders,
         'total_orders': total_orders,
+        'last_order_date': last_order.order_date if last_order else None,
     }
 
     return render(request, 'profile.html', context)
@@ -286,15 +284,43 @@ def buy(request,id):
             user_id = request.session['uid']
             user = users.objects.get(id=user_id)
 
-            quantity = request.POST.get('quantity')
-            address = request.POST.get('address')
+            quantity_raw = request.POST.get('quantity', '1')
+            address = request.POST.get('address', '').strip()
+
+            try:
+                quantity = int(quantity_raw)
+            except (TypeError, ValueError):
+                return HttpResponse(
+                    '<script>alert("Please enter a valid quantity."); window.history.back();</script>'
+                )
+
+            if quantity <= 0:
+                return HttpResponse(
+                    '<script>alert("Quantity must be at least 1."); window.history.back();</script>'
+                )
+
+            if not address:
+                return HttpResponse(
+                    '<script>alert("Please enter a delivery address."); window.history.back();</script>'
+                )
+
+            if product.quantity <= 0:
+                return HttpResponse(
+                    '<script>alert("This product is out of stock."); window.history.back();</script>'
+                )
+
+            if quantity > product.quantity:
+                return HttpResponse(
+                    f'<script>alert("Only {product.quantity} item(s) are available."); window.history.back();</script>'
+                )
+
             try:
                 order = orders.objects.create(product=product,user=user,quantity=quantity,address=address)
                 order.save()
-                product.quantity=product.quantity - int(quantity)
+                product.quantity = product.quantity - quantity
                 product.save()
                 return HttpResponse(
-                    '<script>alert("Payment completed successfully!"); window.location="/my-orders/";</script>'
+                    '<script>alert("Order placed successfully!"); window.location="/my-orders/";</script>'
                  )
             except Exception:
                 return HttpResponse('failed to place order')
@@ -320,15 +346,11 @@ def payment_page(request):
     if not user_id:
         return redirect('/login')
 
-    if request.method == "POST":
-        card_number = request.POST.get("card_number")
-        expiry_date = request.POST.get("expiry_date")
-        cvv = request.POST.get("cvv")
+    form = PaymentForm(request.POST or None)
 
-        if not card_number or not expiry_date or not cvv:
-            return HttpResponse(
-                '<script>alert("Invalid Payment Details"); window.history.back();</script>'
-            )
+    if request.method == "POST":
+        if not form.is_valid():
+            return render(request, "payment.html", {"form": form})
 
         address = request.session.get('checkout_address')
         if not address:
@@ -379,7 +401,7 @@ def payment_page(request):
             '<script>alert("Payment completed successfully!"); window.location="/my-orders/";</script>'
         )
 
-    return render(request, "payment.html")
+    return render(request, "payment.html", {"form": form})
 
 
 
@@ -417,8 +439,15 @@ def user_order_status(request):
         return redirect('login')
 
     user_orders = orders.objects.filter(user_id=user_id).order_by('-order_date')
+    paginator = Paginator(user_orders, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    return render(request,'order_status.html',{'orders':user_orders})
+    return render(request, 'order_status.html', {
+        'orders': page_obj,
+        'page_obj': page_obj,
+        'total_orders': user_orders.count(),
+    })
 
 
 

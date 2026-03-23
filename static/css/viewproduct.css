@@ -155,3 +155,19 @@ td .btn-delete:active {
         white-space: nowrap;
     }
 }
+
+@media (max-width: 640px) {
+    .container h2 {
+        font-size: 1.2rem;
+    }
+
+    th,
+    td {
+        padding: 12px 10px;
+    }
+
+    td img {
+        width: 72px;
+        height: 72px;
+    }
+}

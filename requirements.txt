@@ -24,6 +24,7 @@ debugpy==1.8.11
 decorator==5.1.1
 defusedxml==0.7.1
 Django==5.2.9
+dj-database-url==2.3.0
 executing==2.1.0
 fastjsonschema==2.21.1
 filelock==3.18.0
@@ -78,6 +79,7 @@ pandocfilters==1.5.1
 parso==0.8.4
 paypalrestsdk==1.13.3
 pillow==11.0.0
+psycopg[binary]==3.2.6
 platformdirs==4.3.6
 prometheus_client==0.21.1
 prompt_toolkit==3.0.48
@@ -132,4 +134,5 @@ wcwidth==0.2.13
 webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
+whitenoise==6.9.0
 xgboost==2.1.3

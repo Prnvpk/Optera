@@ -7,6 +7,7 @@
 
 body{
     background:#f4f6f9;
+    overflow-x:hidden;
 }
 
 /* Top Bar */
@@ -37,6 +38,9 @@ body{
 }
 
 .topbar nav .navbar-nav a{
+    display:inline-flex;
+    align-items:center;
+    min-height:40px;
     color:#fff;
     text-decoration:none;
     font-family:'Poppins', sans-serif;
@@ -123,8 +127,26 @@ input{
 
 /* Mobile */
 @media(max-width:768px){
+    .topbar{
+        padding:16px 18px;
+        align-items:flex-start;
+        gap:14px;
+        flex-direction:column;
+    }
+    .topbar nav .navbar-nav{
+        width:100%;
+        gap:10px 14px;
+        flex-wrap:wrap;
+        justify-content:flex-start;
+    }
+    .profile-wrapper{
+        padding:24px 14px 36px;
+    }
     .profile-card{
         grid-template-columns:1fr;
+    }
+    .profile-right{
+        padding:20px 18px;
     }
     .row{
         grid-template-columns:1fr;

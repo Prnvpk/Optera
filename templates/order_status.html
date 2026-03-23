@@ -32,40 +32,106 @@
         </nav>
     </header>
 
-    <h2 class="page-title">My Orders</h2>
-
-    <div class="order-container">
-
-        {% for order in orders %}
-        <div class="order-card">
-
-            <div class="left">
-                <img src="{{ order.product.image.url }}" width="120">
+    <div class="orders-page">
+        {% if orders %}
+        <div class="orders-layout">
+                
+                <div class="hero-pill">
+                    <span>{{ total_orders }} order{{ total_orders|pluralize }}</span>
+                </div>
             </div>
 
-            <div class="right">
-                <h3>{{ order.product.product_name }}</h3>
-                <p>Price : ₹{{ order.product.price }}</p>
-                <p>Quantity : {{ order.quantity }}</p>
-                <p>Date : {{ order.order_date }}</p>
+            <div class="section-card orders-shell">
+                <div class="shell-head">
+                    <h3>Order History</h3>
+                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                </div>
 
-                {% if order.status == "pending" %}
-                <span class="status pending">Pending</span>
-                {% elif order.status == "completed" %}
-                <span class="status completed">Completed</span>
-                {% elif order.status == "shipped" %}
-                <span class="status shipped">Shipped</span>
-                {% else %}
-                <span class="status">{{ order.status }}</span>
+                <div class="order-list">
+                    {% for order in orders %}
+                    <article class="order-card">
+                        <div class="order-image">
+                            {% if order.product.image %}
+                            <img src="{{ order.product.image.url }}" alt="{{ order.product.product_name }}">
+                            {% else %}
+                            <img src="{% static 'img/no-image.png' %}" alt="No Image">
+                            {% endif %}
+                        </div>
+
+                        <div class="order-details">
+                            <p class="item-badge">Order #{{ order.id }}</p>
+                            <h3>{{ order.product.product_name }}</h3>
+
+                            <div class="order-meta">
+                                <div class="meta-box">
+                                    <span class="meta-label">Price</span>
+                                    <span class="meta-value">Rs. {{ order.product.price }}</span>
+                                </div>
+                                <div class="meta-box">
+                                    <span class="meta-label">Quantity</span>
+                                    <span class="meta-value">{{ order.quantity }}</span>
+                                </div>
+                                <div class="meta-box">
+                                    <span class="meta-label">Ordered On</span>
+                                    <span class="meta-value">{{ order.order_date|date:"d M Y" }}</span>
+                                </div>
+                            </div>
+
+                            <div class="status-row">
+                                {% if order.status == "pending" %}
+                                <span class="status pending">Pending</span>
+                                {% elif order.status == "completed" %}
+                                <span class="status completed">Completed</span>
+                                {% elif order.status == "shipped" %}
+                                <span class="status shipped">Shipped</span>
+                                {% else %}
+                                <span class="status">{{ order.status }}</span>
+                                {% endif %}
+
+                                <span class="address-preview">{{ order.address|truncatechars:80 }}</span>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+
+                {% if page_obj.paginator.num_pages > 1 %}
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page-btn">Previous</a>
+                    {% else %}
+                    <span class="page-btn disabled">Previous</span>
+                    {% endif %}
+
+                    <div class="page-numbers">
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if num == page_obj.number %}
+                            <span class="page-number active">{{ num }}</span>
+                            {% elif num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                            <a href="?page={{ num }}" class="page-number">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="page-btn">Next</a>
+                    {% else %}
+                    <span class="page-btn disabled">Next</span>
+                    {% endif %}
+                </div>
                 {% endif %}
-
             </div>
-
         </div>
-        {% empty %}
-        <h3>No Orders Yet</h3>
-        {% endfor %}
-
+        {% else %}
+        <div class="empty-shell">
+            <div class="section-card empty-card">
+                <p class="eyebrow">My Orders</p>
+                <h2>No orders yet</h2>
+                <p>You have not placed any orders yet. Browse products and start your first checkout.</p>
+                <a href="/product" class="shop-btn">Browse Products</a>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
 </body>

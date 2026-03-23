@@ -7,6 +7,7 @@
 
 body {
     background: #f4f6f9;
+    padding: 0 14px;
 }
 
 /* Center container */
@@ -17,6 +18,14 @@ body {
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 640px) {
+    .container {
+        width: 100%;
+        margin: 24px auto;
+        padding: 20px 16px;
+    }
 }
 
 .container h2 {

@@ -34,75 +34,100 @@
     </header>
 
     <div class="cart-page">
-
         {% if cart_items %}
         <div class="cart-layout">
-
-            <!-- LEFT : CART ITEMS -->
-            <div class="cart-items">
-
-                {% for item in cart_items %}
-                <div class="cart-item">
-
-                    <div class="item-details">
-                        <h4>{{ item.product.product_name }}</h4>
-                        <p class="price">₹{{ item.product.price }}</p>
+            <section class="cart-main">
+                <div class="section-card cart-hero">
+                                        <div class="hero-pill">
+                        <span>{{ cart_items|length }} item{{ cart_items|length|pluralize }}</span>
                     </div>
-
-                    <div class="item-image">
-                        {% if item.product.image %}
-                        <img src="{{ item.product.image.url }}" alt="{{ item.product.product_name }}">
-                        {% else %}
-                        <img src="{% static 'img/no-image.png' %}" alt="No Image">
-                        {% endif %}
-                    </div>
-
-                    <div class="item-qty">
-
-                        <a href="{% url 'decrease_qty' item.product.id %}" class="qty-btn">−</a>
-
-                        <span class="qty-number">{{ item.quantity }}</span>
-
-                        <a href="{% url 'increase_qty' item.product.id %}" class="qty-btn">+</a>
-
-                    </div>
-                    
-                    <div class="item-remove">
-                        <a href="{% url 'removefromcart' item.product.id %}" class="remove-btn">
-                            Remove
-                        </a>
-                    </div>
-
-                </div>
-                {% endfor %}
-
-            </div>
-
-            <div class="price-summary">
-                <h3>PRICE DETAILS</h3>
-
-                <div class="summary-row">
-                    <span>Total Items</span>
-                    <span>{{ cart_items|length }}</span>
                 </div>
 
-                <div class="summary-row total">
-                    <span>Total Amount</span>
-                    <span>₹{{ total }}</span>
+                <div class="section-card items-shell">
+                    <div class="shell-head">
+                        <h3>Cart Items</h3>
+                        <span>Ready for checkout</span>
+                    </div>
+
+                    <div class="cart-items">
+                        {% for item in cart_items %}
+                        <article class="cart-item">
+                            <div class="item-image">
+                                {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.product_name }}">
+                                {% else %}
+                                <img src="{% static 'img/no-image.png' %}" alt="No Image">
+                                {% endif %}
+                            </div>
+
+                            <div class="item-details">
+                                <p class="item-badge">Premium Eyewear</p>
+                                <h4>{{ item.product.product_name }}</h4>
+                                <p class="item-desc">{{ item.product.description|truncatechars:90 }}</p>
+                                <div class="item-price-row">
+                                    <span class="price">Rs. {{ item.product.price }}</span>
+                                    <span class="subtotal">Subtotal: Rs. {{ item.subtotal }}</span>
+                                </div>
+
+                                <div class="item-actions">
+                                    <div class="item-qty">
+                                        <a href="{% url 'decrease_qty' item.product.id %}" class="qty-btn">-</a>
+                                        <span class="qty-number">{{ item.quantity }}</span>
+                                        <a href="{% url 'increase_qty' item.product.id %}" class="qty-btn">+</a>
+                                    </div>
+
+                                    <a href="{% url 'removefromcart' item.product.id %}" class="remove-btn">
+                                        Remove
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
                 </div>
+            </section>
 
-                <a href="{% url 'address' %}" class="place-order-btn">
-                    PLACE ORDER
-                </a>
-            </div>
+            <aside class="cart-side">
+                <div class="section-card price-summary">
+                    <div class="summary-head">
+                        <h3>Price Details</h3>
+                        <span class="mini-tag">Checkout</span>
+                    </div>
 
+                    <div class="summary-row">
+                        <span>Total Items</span>
+                        <span>{{ cart_items|length }}</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Delivery</span>
+                        <span>Free</span>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>Total Amount</span>
+                        <span>Rs. {{ total }}</span>
+                    </div>
+
+                    <a href="{% url 'address' %}" class="place-order-btn">
+                        PLACE ORDER
+                    </a>
+                </div>
+            </aside>
         </div>
 
         {% else %}
-        <p class="empty-cart">Your cart is empty</p>
+        <div class="empty-shell">
+            <div class="section-card empty-card">
+                <p class="eyebrow">Your Cart</p>
+                <h2>Your cart is empty</h2>
+                <p>Add a few products and come back here to continue with checkout.</p>
+                <a href="/product" class="shop-btn">Browse Products</a>
+            </div>
+        </div>
         {% endif %}
-
     </div>
 
 </body>
+
 </html>

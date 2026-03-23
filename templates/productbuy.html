@@ -13,17 +13,17 @@
         <h1>buy product</h1>
 
         <div class="name">
-            {{ product.prodduct_name }}
+            {{ product.product_name }}
         </div>
 
         <div class="price">
-            ₹{{ product.price }}
+            Rs. {{ product.price }}
         </div>
 
         <div class="desc">
             {{ product.description }}
         </div>
-        <a href="productbuy" class="buy-btn">Buy Now </a>
+        <a href="{% url 'buyproduct' product.id %}" class="buy-btn">Buy Now</a>
     </div>
 </body>
 </html>

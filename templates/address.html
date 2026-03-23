@@ -1,33 +1,151 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Delivery Address | OPTERA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/address.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
-<header class="topbar">
-    <div class="logo">OPTERA</div>
-</header>
 
-    <div class="address-wrapper">
-        <h2>Delivery Address</h2>
-        <form action="{% url 'address' %}" method="POST">
-            {% csrf_token %}
-    
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="text" name="mobile" placeholder="Mobile Number" required>
-            <input type="text" name="house" placeholder="House / Flat No." required>
-            <input type="text" name="street" placeholder="Street / Area" required>
-            <input type="text" name="city" placeholder="City" required>
-            <input type="text" name="pincode" placeholder="Pincode" required>
-    
-            <button type="submit" class="pay-btn">
-             CONTINUE TO PAYMENT
-            </button>
-        </form>
-    
+<body>
+    <header class="topbar">
+        <a href="/index" class="logo">OPTERA</a>
+        <nav>
+            <div class="navbar-nav">
+                <a href="/index">Home</a>
+                <a href="/product">Products</a>
+                <a href="/profile">
+                    <i class="bi bi-person-circle"></i>
+                </a>
+                <a href="{% url 'cart' %}">
+                    <i class="bi bi-cart"></i>
+                </a>
+                <a href="{% url 'user_order_status' %}">
+                    <i class="bi bi-box"></i>
+                </a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="address-page">
+        <div class="address-layout">
+            <section class="address-main">
+                <div class="section-card address-hero">
+                    <div>
+                        <p class="eyebrow">Checkout</p>
+                        <h2>Add your delivery address</h2>
+                        <p class="hero-subtitle">Keep the same clean checkout flow before moving to payment.</p>
+                    </div>
+                    <div class="hero-pill">
+                        <span>Step 1 of 2</span>
+                    </div>
+                </div>
+
+                <div class="section-card form-card">
+                    <div class="card-head">
+                        <div>
+                            <h3>Delivery Details</h3>
+                            <p>Fill in your shipping address exactly as it should appear on the order.</p>
+                        </div>
+                        <span class="mini-tag">Address Form</span>
+                    </div>
+
+                    <form action="{% url 'address' %}" method="POST">
+                        {% csrf_token %}
+
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <input type="text" name="name" placeholder="Enter full name" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Mobile Number</label>
+                                <input type="text" name="mobile" placeholder="Enter mobile number" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>House / Flat No.</label>
+                            <input type="text" name="house" placeholder="House number, building name" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Street / Area</label>
+                            <input type="text" name="street" placeholder="Street, area, landmark" required>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>City</label>
+                                <input type="text" name="city" placeholder="Enter city" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Pincode</label>
+                                <input type="text" name="pincode" placeholder="Enter pincode" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="pay-btn">
+                            CONTINUE TO PAYMENT
+                        </button>
+                    </form>
+                </div>
+
+                <div class="section-card trust-card">
+                    <div class="trust-item">
+                        <div class="trust-icon">1</div>
+                        <div>
+                            <h4>Address first</h4>
+                            <p>Your delivery information is saved for the current checkout session before payment.</p>
+                        </div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">2</div>
+                        <div>
+                            <h4>Payment next</h4>
+                            <p>Once this form is submitted, the flow continues to the matching payment page design.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="address-side">
+                <div class="section-card summary-card">
+                    <div class="card-head">
+                        <h3>Checkout Summary</h3>
+                        <span class="mini-tag">Current Step</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Address Status</span>
+                        <span>Pending</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Next Step</span>
+                        <span>Payment</span>
+                    </div>
+                    <div class="summary-row total-row">
+                        <span>Flow</span>
+                        <span>Address to Payment</span>
+                    </div>
+                    <p class="summary-note">This page now matches the cart and payment pages so the checkout experience feels continuous.</p>
+                </div>
+
+                <div class="section-card info-card">
+                    <p class="eyebrow">Design Match</p>
+                    <h3>Same system, same branding</h3>
+                    <p>The navbar, logo, font, and black-lime card styling are aligned with the rest of the checkout flow.</p>
+                </div>
+            </aside>
+        </div>
     </div>
 
 </body>
+
 </html>

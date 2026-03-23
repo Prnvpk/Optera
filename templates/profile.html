@@ -15,12 +15,12 @@
 <body>
 
 <header class="topbar sticky-top">
-    <a href="/index" class="logo">OPTERA</a>
+    <a href="{% url 'index' %}" class="logo">OPTERA</a>
     <nav>
         <div class="navbar-nav">
-            <a href="/index">Home</a>
-            <a href="/product">Products</a>
-            <a href="/profile">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'product' %}">Products</a>
+            <a href="{% url 'profile' %}">
                 <i class="bi bi-person-circle"></i>
             </a>
             <a href="{% url 'cart' %}">
@@ -75,8 +75,8 @@
 
         <h3>Activity</h3>
         <div class="row">
-            <input type="text" value="Total Orders: 0" readonly>
-            <input type="text" value="Last Login: Today" readonly>
+            <input type="text" value="Total Orders: {{ total_orders }}" readonly>
+            <input type="text" value="Last Order: {% if last_order_date %}{{ last_order_date|date:'M d, Y' }}{% else %}No orders yet{% endif %}" readonly>
         </div>
 
     </div>

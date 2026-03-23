@@ -65,4 +65,8 @@ body {
         margin-left: 0;
         padding: 15px;
     }
+
+    .card-container {
+        flex-direction: column;
+    }
 }

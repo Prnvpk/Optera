@@ -23,21 +23,21 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home),
-    path('index', views.index),
-    path('register',views.register),
-    path('shows',views.showuser),
-    path('login',views.login),
+    path('',views.home, name='home'),
+    path('index', views.index, name='index'),
+    path('register',views.register, name='register'),
+    path('shows',views.showuser, name='shows'),
+    path('login',views.login, name='login'),
     path('logout', views.logout, name='logout'),
     path('addproduct',views.addpro, name='addproduct'),
     path('viewproduct', views.viewproduct, name='viewproduct'),
     path('editproduct/<int:id>/', views.editproduct, name='editproduct'),
     path('deleteproduct/<int:id>/', views.deleteproduct, name='deleteproduct'),
-    path('product',views.openproduct),
+    path('product',views.openproduct, name='product'),
     path('productbuy/<int:id>/', views.openbuy, name='productbuy'),
     path('buyproduct/<int:id>/', views.buy, name='buyproduct'),
 
-    path('profile',views.openprofile),
+    path('profile',views.openprofile, name='profile'),
     path('dashboard',views.dashboard, name='dashboard'),
     path('add-to-cart/<int:pid>/', views.addtocart, name='add_to_cart'),
     path('cart/', views.opencart, name='cart'),
@@ -51,17 +51,6 @@ urlpatterns = [
     path('admin-orders/', views.admin_orders, name='admin_orders'),
     path('update-order/<int:oid>/', views.update_order_status, name='update_order_status'),
     path('my-orders/', views.user_order_status, name='user_order_status'),
-
-
-    path('admin-orders/', views.admin_orders, name='admin_orders'),
-    path('update-order/<int:oid>/', views.update_order_status, name='update_order_status'),
-
-
-
-
-
- 
-
 ]
 
 if settings.DEBUG:

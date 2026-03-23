@@ -28,7 +28,7 @@
             <div class="slider-tab"></div>
          </div>
          <div class="form-inner">
-            <form action="login" method="POST" class="login">
+            <form action="{% url 'login' %}" method="POST" class="login">
                {% csrf_token %}
                <div class="field">
                   <input type="text" name="mail" placeholder="Email Address" required>
@@ -47,7 +47,7 @@
                   Not a member? <a href="">Signup now</a>
                </div>
             </form>
-            <form action="register" method="POST" class="signup" autocomplete="off">
+            <form action="{% url 'register' %}" method="POST" class="signup" autocomplete="off">
                {% csrf_token %}
 
                <div class="field">

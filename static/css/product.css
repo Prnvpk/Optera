@@ -9,6 +9,7 @@
 body {
     background: #f8f9fb;
     color: #222;
+    overflow-x: hidden;
 }
 .topbar{
     display:flex;
@@ -34,6 +35,9 @@ body {
     gap:20px;
 }
 .topbar nav .navbar-nav a{
+    display:inline-flex;
+    align-items:center;
+    min-height:40px;
     color:#fff;
     text-decoration:none;
     font-family:'Poppins', sans-serif;
@@ -165,4 +169,59 @@ body {
 
 .card .btn:last-of-type:hover {
     background: #333;
+}
+
+@media (max-width: 768px) {
+    .topbar {
+        padding: 16px 18px;
+        align-items: flex-start;
+        gap: 14px;
+        flex-direction: column;
+    }
+
+    .topbar nav .navbar-nav {
+        width: 100%;
+        gap: 10px 14px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .container {
+        padding: 24px 14px 36px;
+    }
+
+    .search-box {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .search-box input,
+    .search-box button {
+        width: 100%;
+        border-radius: 14px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .card img {
+        height: 200px;
+    }
+
+    .card .btn {
+        width: 100%;
+        margin-right: 0;
+        margin-top: 8px;
+    }
+
+    .card .btn:first-of-type {
+        margin-right: 0;
+    }
 }

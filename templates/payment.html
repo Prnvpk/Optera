@@ -4,14 +4,13 @@
 
 <head>
     <title>Payment | OPTERA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Poppins:wght@200;600;700&display=swap"
         rel="stylesheet">
-
-
-    <!-- OPTIONAL ICONS (makes UI look premium) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/payment.css' %}">
 
@@ -23,14 +22,14 @@
         <div class="logo">OPTERA</div>
         <nav>
             <div class="navbar-nav">
-                <a href="index">Home</a>
-                <a href="product">Products</a>
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'product' %}">Products</a>
 
-                <a href="profile">
+                <a href="{% url 'profile' %}">
                     <i class="bi bi-person-circle"></i>
                 </a>
 
-                <a href="cart">
+                <a href="{% url 'cart' %}">
                     <i class="bi bi-cart"></i>
                 </a>
 
@@ -44,49 +43,137 @@
     </header>
 
     <div class="payment-container">
-
-        <!-- LEFT SIDE PAYMENT FORM -->
-        <div class="payment-wrapper">
-
-            <h2>Secure Card Payment</h2>
-            <p class="subtitle">All transactions are encrypted and secure.</p>
-
-            <form method="POST" action="{% url 'payment' %}">
-                {% csrf_token %}
-
-                <!-- CARD NUMBER -->
-                <div class="input-group">
-                    <label>Card Number</label>
-                    <div class="input-icon">
-                        <i class="fa-regular fa-credit-card"></i>
-                        <input type="text" name="card_number" maxlength="16" placeholder="1234 5678 1234 5678" required>
+        <div class="payment-layout">
+            <div class="page-back-row">
+                <a href="#" class="back-btn" onclick="history.back(); return false;">Back</a>
+            </div>
+            <section class="payment-main">
+                <div class="section-card payment-hero">
+                    <div>
+                        <p class="eyebrow">Checkout</p>
+                        <h2>Complete your payment securely</h2>
+                    
+                    </div>
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>100% Secure</span>
                     </div>
                 </div>
 
-                <!-- ROW FOR EXPIRY + CVV -->
-                <div class="row-fields">
-
-                    <div class="input-group">
-                        <label>Expiry Date</label>
-                        <input type="text" name="expiry_date" maxlength="5" placeholder="MM/YY" required>
+                <div class="section-card methods-card">
+                    <div class="card-head">
+                        <h3>Select Payment Method</h3>
+                        <span class="card-step">Step 2 of 2</span>
                     </div>
-
-                    <div class="input-group">
-                        <label>CVV</label>
-                        <input type="password" name="cvv" maxlength="3" placeholder="123" required>
+                    <div class="method-grid">
+                        <div class="method-box active">
+                            <i class="fa-regular fa-credit-card"></i>
+                            <span>Credit / Debit Card</span>
+                        </div>
+                        <div class="method-box">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <span>Net Banking</span>
+                        </div>
+                        <div class="method-box">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                            <span>UPI Apps</span>
+                        </div>
+                        <div class="method-box">
+                            <i class="fa-solid fa-wallet"></i>
+                            <span>Wallets</span>
+                        </div>
                     </div>
-
                 </div>
 
-                <button type="submit" class="pay-btn">
-                    <i class="fa-solid fa-lock"></i> Pay Securely
-                </button>
+                <div class="section-card form-card">
+                    <div class="card-head">
+                        <div>
+                            <h3>Card Details</h3>
+                            <p>Enter your bank card information below.</p>
+                        </div>
+                        <div class="accepted-cards">
+                            <span>VISA</span>
+                            <span>MC</span>
+                            <span>RUPAY</span>
+                        </div>
+                    </div>
 
-            </form>
+                    <form method="POST" action="{% url 'payment' %}">
+                        {% csrf_token %}
 
+                        {% if form.errors %}
+                        <div class="payment-errors">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                <p>{{ error }}</p>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="input-group">
+                            <label>Card Number</label>
+                            <div class="input-icon">
+                                <i class="fa-regular fa-credit-card"></i>
+                                <input type="text" name="card_number" maxlength="16" placeholder="1234567812345678" value="{{ form.card_number.value|default:'' }}" required>
+                            </div>
+                        </div>
+
+                        <div class="row-fields">
+                            <div class="input-group">
+                                <label>Expiry Date</label>
+                                <input type="text" name="expiry_date" maxlength="5" placeholder="MM/YY" value="{{ form.expiry_date.value|default:'' }}" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label>CVV</label>
+                                <input type="password" name="cvv" maxlength="3" value="{{ form.cvv.value|default:'' }}" placeholder="123" required>
+                            </div>
+                        </div>
+
+                        <div class="secure-strip">
+                            <div class="strip-item">
+                                <i class="fa-solid fa-lock"></i>
+                                <span>Encrypted transaction</span>
+                            </div>
+                            <div class="strip-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>Instant confirmation</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="pay-btn">
+                            <i class="fa-solid fa-lock"></i> Pay Securely
+                        </button>
+                    </form>
+                </div>
+
+                >
+            </section>
+
+            <aside class="payment-side">
+                <div class="section-card summary-card">
+                    <div class="card-head">
+                        <h3>Price Details</h3>
+                        <span class="mini-tag">Order Summary</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Secure handling</span>
+                        <span>Included</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Payment mode</span>
+                        <span>Card</span>
+                    </div>
+                    <div class="summary-row total-row">
+                        <span>Status</span>
+                        <span>Ready to Pay</span>
+                    </div>
+                    <p class="summary-note">Review your card details and complete the order in one step.</p>
+                </div>
+
+            </aside>
         </div>
-
-
     </div>
 
 </body>

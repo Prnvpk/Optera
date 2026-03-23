@@ -219,3 +219,14 @@ button:active {
     }
 }
 
+@media (max-width: 640px) {
+    select,
+    button {
+        width: 100%;
+    }
+
+    form {
+        align-items: stretch;
+    }
+}
+
