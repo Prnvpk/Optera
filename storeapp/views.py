@@ -22,10 +22,30 @@ def register(request):
     if request.method != 'POST':
         return redirect('home')
 
-    Name = request.POST.get('name')
-    Email = request.POST.get('mail')
-    Number = request.POST.get('num')
-    Password = request.POST.get('pass')
+    Name = request.POST.get('name', '').strip()
+    Email = request.POST.get('mail', '').strip()
+    Number = request.POST.get('num', '').strip()
+    Password = request.POST.get('pass', '').strip()
+
+    if not all([Name, Email, Number, Password]):
+        return HttpResponse(
+            '<script>alert("Please fill all signup fields."); window.history.back();</script>'
+        )
+
+    if not Number.isdigit():
+        return HttpResponse(
+            '<script>alert("Phone number must contain digits only."); window.history.back();</script>'
+        )
+
+    if len(Number) < 10 or len(Number) > 15:
+        return HttpResponse(
+            '<script>alert("Phone number must be between 10 and 15 digits."); window.history.back();</script>'
+        )
+
+    if users.objects.filter(gmail=Email).exists():
+        return HttpResponse(
+            '<script>alert("Email is already registered."); window.history.back();</script>'
+        )
 
     data = users.objects.create(
         name=Name,
