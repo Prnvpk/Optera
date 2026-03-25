@@ -72,14 +72,14 @@ def login(request):
         return redirect('home')
 
     if request.method == "POST":
-        mail = request.POST.get('mail')
-        pas  = request.POST.get('pass')  
+        mail = request.POST.get('mail', '').strip().lower()
+        pas  = request.POST.get('pass', '').strip()
 
-        if mail == 'admin@gmail.com' and pas == 'admin123':
+        if mail in {'admin@gmail.com', 'admin@gamil.com'} and pas == 'admin123':
             return redirect('dashboard')
         
         try:
-            data = users.objects.get(gmail=mail, password=pas)
+            data = users.objects.get(gmail__iexact=mail, password=pas)
             request.session['uid'] = data.id
             return redirect('index')
         except users.DoesNotExist:
