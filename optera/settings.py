@@ -5,7 +5,10 @@ Django settings for optera project.
 from pathlib import Path
 import os
 
-import dj_database_url
+try:
+    import dj_database_url
+except ModuleNotFoundError:
+    dj_database_url = None
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,6 +85,11 @@ WSGI_APPLICATION = "optera.wsgi.application"
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
+    if dj_database_url is None:
+        raise ModuleNotFoundError(
+            "dj_database_url is required when DATABASE_URL is set. "
+            "Install dependencies from requirements.txt."
+        )
     DATABASES = {
         "default": dj_database_url.parse(
             DATABASE_URL,
@@ -128,7 +136,8 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = Path(os.getenv("MEDIA_ROOT", str(BASE_DIR / "media")))
+SERVE_MEDIA = env_bool("SERVE_MEDIA", False)
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
